@@ -6,6 +6,12 @@ This project provides an API to be providing the highest words for a list of let
 
 To run the project:
 
+Project created with:
+
+```go mod init countdownapi
+   go get -u github.com/gin-gonic/gin
+```
+
 
 ## Updates
 
