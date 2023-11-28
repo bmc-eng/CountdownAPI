@@ -17,25 +17,31 @@ var words []string
 func findWords(letters []string) (ret []string) {
 	// go through each of the letters and see which words contain
 	// the letters
+
+	// step 1 - filter all the words with letter[i] in them
 	var filteredWords []string
 	filteredWords = words
-	// step 1 - filter all the words with letter[i] in them
-	for _, w := range letters {
+
+	for _, letter := range letters {
 		var newFilteredWords []string
 		for _, s := range filteredWords {
-			if strings.Contains(s, w) {
-				newFilteredWords = append(newFilteredWords, s)
+			if strings.Contains(s, letter) {
+				// exclude the word if its longer than the number of letters
+				if len(letters) >= len(s) {
+					newFilteredWords = append(newFilteredWords, s)
+				}
+
 			}
 		}
 		filteredWords = newFilteredWords
 	}
 
 	// step 2 - find the word with the longest number of letters
-	return filteredWords
+
 	// check that the word has
 
 	// return the word
-
+	return filteredWords
 }
 
 func wordsGameHandler(c *gin.Context) {
