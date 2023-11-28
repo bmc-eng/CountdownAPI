@@ -14,7 +14,7 @@ In Postman or in a webbrowser send the following GET request:
 
 ```http://localhost:8080/words/t;h;e;r;d;a```
 
-This will return with a list of words matching the letters
+This will return with a list of words matching the letters.
 
 Project created with:
 
@@ -22,6 +22,32 @@ Project created with:
    go get -u github.com/gin-gonic/gin
 ```
 
+## Tests to run
+
+```
+http://localhost:8080/words/t;h;e;r;d;a
+http://localhost:8080/words/t;c;h;o;s;e;n
+
+```
+
+Returns example:
+```
+{
+    "dictionary": [
+        "thread",
+        "hatred",
+        "dearth"
+    ],
+    "test": [
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a"
+    ]
+}
+```
 
 ## Updates
 
