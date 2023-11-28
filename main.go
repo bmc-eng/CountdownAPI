@@ -8,16 +8,26 @@ import (
 	"sort"
 	"strings"
 
+	"golang.org/x/exp/slices"
+
 	"github.com/gin-gonic/gin"
 )
 
 var dictionary map[string]interface{}
 var words []string
 
-func findWords(letters []string) (ret []string) {
-	// go through each of the letters and see which words contain
-	// the letters
+func RemoveIndex(s []string, index string) []string {
+	var indexInt int
+	for i := 0; i <= len(s); i++ {
+		if s[i] == index {
+			return append(s[:indexInt], s[indexInt+1:]...)
+		}
+	}
+	return nil
 
+}
+
+func initialFilter(letters []string) (ret []string) {
 	// step 1 - filter all the words with letter[i] in them
 	var filteredWords []string
 	filteredWords = words
@@ -35,13 +45,40 @@ func findWords(letters []string) (ret []string) {
 		}
 		filteredWords = newFilteredWords
 	}
+	return filteredWords
+}
 
-	// step 2 - find the word with the longest number of letters
+func findWords(letters []string) (ret []string) {
+	// go through each of the letters and see which words contain
+	// the letters
 
-	// check that the word has
+	filteredWords := initialFilter(letters)
+
+	// step 2 - These are all possibilities of words. Confirm that they are correct
+	// for each word in the list, remove the letter one at a time
+	var returnedList []string
+	for _, word := range filteredWords {
+		// remove the letters from the word 1 by one
+		var letterTest []string
+		letterTest = letters
+
+		// Go through the letter in the word one by one
+		lettersInWord := strings.Split(word, "")
+
+		for _, letter := range lettersInWord {
+			if slices.Contains(letterTest, letter) {
+				//remove from letterTest
+				letterTest = RemoveIndex(letterTest, letter)
+			}
+		}
+		if letterTest != nil {
+			returnedList = append(returnedList, word)
+		}
+
+	}
 
 	// return the word
-	return filteredWords
+	return returnedList
 }
 
 func wordsGameHandler(c *gin.Context) {

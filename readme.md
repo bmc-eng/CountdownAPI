@@ -6,6 +6,16 @@ This project provides an API to be providing the highest words for a list of let
 
 To run the project:
 
+```
+go run main.go
+```
+
+In Postman or in a webbrowser send the following GET request:
+
+```http://localhost:8080/words/t;h;e;r;d;a```
+
+This will return with a list of words matching the letters
+
 Project created with:
 
 ```go mod init countdownapi
