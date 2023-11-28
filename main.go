@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"sort"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -13,12 +14,36 @@ import (
 var dictionary map[string]interface{}
 var words []string
 
+func findWords(letters []string) (ret []string) {
+	// go through each of the letters and see which words contain
+	// the letters
+	var filteredWords []string
+	filteredWords = words
+	// step 1 - filter all the words with letter[i] in them
+	for _, w := range letters {
+		var newFilteredWords []string
+		for _, s := range filteredWords {
+			if strings.Contains(s, w) {
+				newFilteredWords = append(newFilteredWords, s)
+			}
+		}
+		filteredWords = newFilteredWords
+	}
+
+	// step 2 - find the word with the longest number of letters
+	return filteredWords
+	// check that the word has
+
+	// return the word
+
+}
+
 func wordsGameHandler(c *gin.Context) {
 	// Split the letters into an array
 	strLetters := c.Param("letters")
 	letters := strings.Split(strLetters, ";")
-
-	c.JSON(http.StatusOK, gin.H{"test": letters, "dictionary": words[0]})
+	filteredWords := findWords(letters)
+	c.JSON(http.StatusOK, gin.H{"test": letters, "dictionary": filteredWords})
 }
 
 func init() {
@@ -31,6 +56,15 @@ func init() {
 	for k := range dictionary {
 		words = append(words, k)
 	}
+
+	// sort the words largest to smallest
+	sort.Slice(words, func(i, j int) bool {
+		l1, l2 := len(words[i]), len(words[j])
+		if l1 != l2 {
+			return l1 > l2
+		}
+		return words[i] > words[j]
+	})
 	fmt.Println("setup complete")
 }
 
