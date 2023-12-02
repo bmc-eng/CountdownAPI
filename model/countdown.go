@@ -76,37 +76,9 @@ func bruteForceSearch(letters []string) (ret []string) {
 	return matchedWords
 }
 
-// Filter all of the words initially
-func initialFilter(letters []string) (ret []string) {
-	// step 1 - filter all the words with letter[i] in them
-	var filteredWords []string
-	filteredWords = words
-
-	// Loop through each user input letter
-	for _, letter := range letters {
-		var newFilteredWords []string
-
-		// Loop through each word in the dictionary
-		for _, s := range filteredWords {
-			// If the word contains the letter then add to the filtered words
-			if strings.Contains(s, letter) {
-				// exclude the word if its longer than the number of letters
-				if len(letters) >= len(s) {
-					newFilteredWords = append(newFilteredWords, s)
-				}
-
-			}
-		}
-		filteredWords = newFilteredWords
-	}
-	return filteredWords
-}
-
 func FindWords(letters []string) (ret []string) {
 	// go through each of the letters and see which words contain
 	// the letters
-
-	//filteredWords := initialFilter(letters)
 	filteredWords := bruteForceSearch(letters)
 
 	return filteredWords
