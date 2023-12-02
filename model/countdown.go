@@ -38,19 +38,20 @@ func checkLetter(letter string, lettersFromUser []string) (ret bool) {
 
 // New search function - previous contains function not working for longer strings
 func bruteForceSearch(letters []string) (ret []string) {
-	// loop through all words in the dictionary
+
 	var matchedWords []string
 	var isLetterInWord bool
+
+	// loop through all words in the dictionary
 	for _, word := range words {
 		// filter the words that are over number of letters provided by user
 		if len(word) <= len(letters) {
 			// check each word to see if it contains the letter
 			//convert string to array
-			var remainingLetters []string
+			remainingLetters := append([]string(nil), letters...)
 			lettersInWord := strings.Split(word, "")
-			remainingLetters = letters
 
-			fmt.Println(lettersInWord)
+			fmt.Println(remainingLetters)
 			isLetterInWord = false
 
 			// loop through the word and remove from the lettersinWord if it appears
@@ -60,6 +61,7 @@ func bruteForceSearch(letters []string) (ret []string) {
 				if !isLetterInWord {
 					break
 				} else {
+					// remove letters from the remaining
 					remainingLetters = removeIndex(remainingLetters, lettersInWord[i])
 					isLetterInWord = true
 				}
@@ -113,8 +115,8 @@ func FindWords(letters []string) (ret []string) {
 // Load the dictionary and sort from largest to smallest
 func LoadDictionary() {
 	//unpack the json file
-	file, _ := os.ReadFile("data/dict-test.json")
-	//file, _ := os.ReadFile("data/dictionary.json")
+	//file, _ := os.ReadFile("data/dict-test.json")
+	file, _ := os.ReadFile("data/dictionary.json")
 	_ = json.Unmarshal([]byte(file), &dictionary)
 
 	// pull all the keys into a single words array list
