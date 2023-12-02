@@ -27,6 +27,7 @@ Project created with:
 ```
 http://localhost:8080/words/t;h;e;r;d;a
 http://localhost:8080/words/t;c;h;o;s;e;n
+http://localhost:8080/words/s;r;k;d;u;a;e;w;n
 
 ```
 
