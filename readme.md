@@ -1,6 +1,6 @@
 # Countdown API
 
-This project provides an API to be providing the highest words for a list of letters implemented with various search algorithms.
+This project provides an API to be providing the highest words for a list of letters implemented with various search algorithms. The first algorithm uses a brute force approach to finding a word given the letters. The returned array is a list of all of the words in the dictionary that could be considered a match.
 
 ## Prerequisites
 
@@ -50,7 +50,10 @@ Returns example:
 }
 ```
 
-## Updates
+## To do
+
+- Add in the dictionary definition of the results
+- Add 
 
 
 ## Contributions

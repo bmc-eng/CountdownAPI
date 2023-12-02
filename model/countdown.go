@@ -2,7 +2,6 @@ package model
 
 import (
 	"encoding/json"
-	"fmt"
 	"os"
 	"sort"
 	"strings"
@@ -51,7 +50,7 @@ func bruteForceSearch(letters []string) (ret []string) {
 			remainingLetters := append([]string(nil), letters...)
 			lettersInWord := strings.Split(word, "")
 
-			fmt.Println(remainingLetters)
+			//fmt.Println(remainingLetters)
 			isLetterInWord = false
 
 			// loop through the word and remove from the lettersinWord if it appears
@@ -80,6 +79,10 @@ func FindWords(letters []string) (ret []string) {
 	// go through each of the letters and see which words contain
 	// the letters
 	filteredWords := bruteForceSearch(letters)
+
+	// Change the dictionary so that only top answers are returned
+
+	// send the definitions back to the handler
 
 	return filteredWords
 }
