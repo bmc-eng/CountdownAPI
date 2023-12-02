@@ -53,7 +53,7 @@ Returns example:
 ## To do
 
 - Add in the dictionary definition of the results
-- Add 
+- Add functionality to limit the size of the array being returned
 
 
 ## Contributions

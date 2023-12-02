@@ -10,31 +10,6 @@ import (
 var words []string
 var dictionary map[string]interface{}
 
-func removeIndex(s []string, index string) []string {
-	//var indexInt int
-	if len(s) == 0 {
-		return s
-	}
-	for i := 0; i < len(s); i++ {
-		if s[i] == index {
-			return append(s[:i], s[i+1:]...)
-		}
-	}
-	return s
-
-}
-
-func checkLetter(letter string, lettersFromUser []string) (ret bool) {
-
-	for i := 0; i < len(lettersFromUser); i++ {
-		if letter == lettersFromUser[i] {
-			return true
-		}
-	}
-
-	return false
-}
-
 // New search function - previous contains function not working for longer strings
 func bruteForceSearch(letters []string) (ret []string) {
 
@@ -78,9 +53,10 @@ func bruteForceSearch(letters []string) (ret []string) {
 func FindWords(letters []string) (ret []string) {
 	// go through each of the letters and see which words contain
 	// the letters
-	filteredWords := bruteForceSearch(letters)
+	matchedWords := bruteForceSearch(letters)
 
 	// Change the dictionary so that only top answers are returned
+	filteredWords := matchedWords[:5]
 
 	// send the definitions back to the handler
 
@@ -108,4 +84,33 @@ func LoadDictionary() {
 		}
 		return words[i] > words[j]
 	})
+}
+
+// ########################
+// ### HELPER FUNCTIONS ###
+// ########################
+
+func removeIndex(s []string, index string) []string {
+	//var indexInt int
+	if len(s) == 0 {
+		return s
+	}
+	for i := 0; i < len(s); i++ {
+		if s[i] == index {
+			return append(s[:i], s[i+1:]...)
+		}
+	}
+	return s
+
+}
+
+func checkLetter(letter string, lettersFromUser []string) (ret bool) {
+
+	for i := 0; i < len(lettersFromUser); i++ {
+		if letter == lettersFromUser[i] {
+			return true
+		}
+	}
+
+	return false
 }
