@@ -18,5 +18,5 @@ func init() {
 func main() {
 	router := gin.Default()
 	router.GET("/words/:letters", handler.GameHandler)
-	router.Run()
+	router.Run(":3000")
 }

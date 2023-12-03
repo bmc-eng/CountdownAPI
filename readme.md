@@ -24,6 +24,13 @@ Project created with:
    go get -u github.com/gin-gonic/gin
 ```
 
+## Build the project
+To build the project run the following:
+```
+go build *.go
+./main
+```
+
 ## Tests to run
 
 ```
@@ -64,10 +71,34 @@ Returns example:
 }
 ```
 
+## Setup as a server in AWS
+In this example we build a docker container to run the application and then host this in AWS:
+
+### Set up Docker image
+We will use the golang alpine3.18 image from Dockerhub as the go installation. Pull the golang docker image from Dockerhub: 
+
+```
+docker pull golang:alpine3.18
+```
+
+The Dockerfile in the source code has been created to build the correct docker image to run an application on port 3000. Build the docker image using the following code:
+
+```
+docker build -t countdownapi .
+```
+And then to run this locally to test, run the following:
+
+```
+docker run -dp 127.0.0.1:3000:3000 countdownapi
+```
+
+### Basic docker container running in AWS
+
 ## To do
 
 - Add in the dictionary definition of the results (DONE)
 - Add functionality to limit the size of the array being returned (DONE)
+- Add instructions for running in AWS
 
 
 ## Contributions
