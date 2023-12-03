@@ -92,13 +92,35 @@ And then to run this locally to test, run the following:
 docker run -dp 127.0.0.1:3000:3000 countdownapi
 ```
 
+Finally we need to push the container into Docker Hub to be using in AWS. You will need to log into Docker Hub in order to do this. Once logged in create a new repository in the web UI. This will give you a tag for the docker image. Then push this into Docker Hub:
+
+```
+docker tag bmctest/countdownapi:latest
+docker push bmctest/countdownapi:latest
+```
+
 ### Basic docker container running in AWS
+
+We use Elastic Container Service to run the container. Log into AWS and navigate to the Elastic Container Service. Using the old view: run the following steps outlined in the following document on AWS Help Center: https://aws.amazon.com/getting-started/hands-on/deploy-docker-containers/
+
+Change the sample-app to select 'custom' and use the following Docker Hub URL to pull in the container image just created:
+
+```
+docker.io/bmctest/countdownapi:latest
+```
+
+Select to create an Application Load Balancer and keep all other defaults. Once the service is set up, navigate to the load balancer page and find the DNS set up for sending requests. You can use the DNS name to send requests to the running service:
+
+```
+http://EC2Con-EcsEl-MEcwhs3oRXvj-1468286161.eu-west-2.elb.amazonaws.com:3000/words/s;r;k;d;u;a;e;w
+```
+
 
 ## To do
 
 - Add in the dictionary definition of the results (DONE)
 - Add functionality to limit the size of the array being returned (DONE)
-- Add instructions for running in AWS
+- Add instructions for running in AWS (DONE)
 
 
 ## Contributions
