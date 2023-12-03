@@ -22,3 +22,7 @@ func GameHandler(c *gin.Context) {
 		"dictionary":  filteredWords,
 		"definitions": filteredDefinitions})
 }
+
+func HealthCheckHandler(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{"healthcheck": "OK"})
+}

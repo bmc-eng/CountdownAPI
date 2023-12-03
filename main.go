@@ -18,5 +18,6 @@ func init() {
 func main() {
 	router := gin.Default()
 	router.GET("/words/:letters", handler.GameHandler)
+	router.GET("/", handler.HealthCheckHandler)
 	router.Run(":3000")
 }
