@@ -121,6 +121,3 @@ http://EC2Con-EcsEl-MEcwhs3oRXvj-1468286161.eu-west-2.elb.amazonaws.com:3000/wor
 - Add in the dictionary definition of the results (DONE)
 - Add functionality to limit the size of the array being returned (DONE)
 - Add instructions for running in AWS (DONE)
-
-
-## Contributions
