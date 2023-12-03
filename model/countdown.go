@@ -2,6 +2,7 @@ package model
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 	"sort"
 	"strings"
@@ -9,6 +10,12 @@ import (
 
 var words []string
 var dictionary map[string]interface{}
+var definitions map[string]interface{}
+
+type Dictionary struct {
+	word       string
+	definition string
+}
 
 // New search function - previous contains function not working for longer strings
 func bruteForceSearch(letters []string) (ret []string) {
@@ -50,7 +57,7 @@ func bruteForceSearch(letters []string) (ret []string) {
 	return matchedWords
 }
 
-func FindWords(letters []string) (ret []string) {
+func FindWords(letters []string) ([]string, []string) {
 	// go through each of the letters and see which words contain
 	// the letters
 	matchedWords := bruteForceSearch(letters)
@@ -59,8 +66,13 @@ func FindWords(letters []string) (ret []string) {
 	filteredWords := matchedWords[:5]
 
 	// send the definitions back to the handler
+	var definitions []string
+	for _, word := range filteredWords {
+		definition := dictionary[word].(string)
+		definitions = append(definitions, definition)
+	}
 
-	return filteredWords
+	return filteredWords, definitions
 }
 
 // Load the dictionary and sort from largest to smallest
@@ -84,6 +96,8 @@ func LoadDictionary() {
 		}
 		return words[i] > words[j]
 	})
+	fmt.Println(dictionary["skew"])
+	//fmt.Println(words)
 }
 
 // ########################

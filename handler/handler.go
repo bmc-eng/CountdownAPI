@@ -15,8 +15,10 @@ func GameHandler(c *gin.Context) {
 	letters := strings.Split(strLetters, ";")
 
 	// Find the words and return a list of potential words
-	filteredWords := model.FindWords(letters)
+	filteredWords, filteredDefinitions := model.FindWords(letters)
 
 	// return the JSON file to the user
-	c.JSON(http.StatusOK, gin.H{"test": letters, "dictionary": filteredWords})
+	c.JSON(http.StatusOK, gin.H{"userLetters": letters,
+		"dictionary":  filteredWords,
+		"definitions": filteredDefinitions})
 }
