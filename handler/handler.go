@@ -23,6 +23,7 @@ func GameHandler(c *gin.Context) {
 		"definitions": filteredDefinitions})
 }
 
+// Handler for AWS health checks when running in ECS
 func HealthCheckHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"healthcheck": "OK"})
 }

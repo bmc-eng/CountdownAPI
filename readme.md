@@ -114,7 +114,7 @@ Select to create an Application Load Balancer and keep all other defaults. Once 
 ```
 http://EC2Con-EcsEl-MEcwhs3oRXvj-1468286161.eu-west-2.elb.amazonaws.com:3000/words/s;r;k;d;u;a;e;w
 ```
-
+To update the container, go to the cluster service page in AWS and update the service. Selecting Force new deployment will download the latest image from Docker Hub again. 
 
 ## To do
 
