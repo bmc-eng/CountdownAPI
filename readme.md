@@ -13,7 +13,7 @@ go run main.go
 In Postman or in a webbrowser send the following GET request:
 
 ```
-http://localhost:8080/words/s;r;k;d;u;a;e;w;n
+http://localhost:3000/words/s;r;k;d;u;a;e;w;n
 ```
 
 This will return with a list of words matching the letters.
@@ -34,9 +34,9 @@ go build *.go
 ## Tests to run
 
 ```
-http://localhost:8080/words/t;h;e;r;d;a
-http://localhost:8080/words/t;c;h;o;s;e;n
-http://localhost:8080/words/s;r;k;d;u;a;e;w;n
+http://localhost:3000/words/t;h;e;r;d;a
+http://localhost:3000/words/t;c;h;o;s;e;n
+http://localhost:3000/words/s;r;k;d;u;a;e;w;n
 
 ```
 
