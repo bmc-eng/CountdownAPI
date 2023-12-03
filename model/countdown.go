@@ -2,7 +2,6 @@ package model
 
 import (
 	"encoding/json"
-	"fmt"
 	"os"
 	"sort"
 	"strings"
@@ -96,8 +95,7 @@ func LoadDictionary() {
 		}
 		return words[i] > words[j]
 	})
-	fmt.Println(dictionary["skew"])
-	//fmt.Println(words)
+
 }
 
 // ########################

@@ -12,7 +12,9 @@ go run main.go
 
 In Postman or in a webbrowser send the following GET request:
 
-```http://localhost:8080/words/t;h;e;r;d;a```
+```
+http://localhost:8080/words/s;r;k;d;u;a;e;w;n
+```
 
 This will return with a list of words matching the letters.
 
@@ -34,26 +36,38 @@ http://localhost:8080/words/s;r;k;d;u;a;e;w;n
 Returns example:
 ```
 {
-    "dictionary": [
-        "thread",
-        "hatred",
-        "dearth"
+    "definitions": [
+        "Unawares; unexpectedly; -- sometimes preceded by at. [Obs.] Holinshed.",
+        "To recant or recall, as an oath; to recall after having sworn; to abjure. J. Fletcher.\n\nTo recall an oath. Spenser.",
+        "Toward the sun.",
+        "A Dane. [Obs.] Inquire me first what Danskers are in Paris. Shak.",
+        "Apart; separate from each other; into parts; in two; separately; into or in different pieces or places. I took my staff, even Beauty, and cut it asunder. Zech. xi. 10. As wide asunder as pole and pole. Froude."
     ],
-    "test": [
+    "dictionary": [
+        "unwares",
+        "unswear",
+        "sunward",
+        "dansker",
+        "asunder"
+    ],
+    "userLetters": [
+        "s",
+        "r",
+        "k",
+        "d",
+        "u",
         "a",
-        "a",
-        "a",
-        "a",
-        "a",
-        "a"
+        "e",
+        "w",
+        "n"
     ]
 }
 ```
 
 ## To do
 
-- Add in the dictionary definition of the results
-- Add functionality to limit the size of the array being returned
+- Add in the dictionary definition of the results (DONE)
+- Add functionality to limit the size of the array being returned (DONE)
 
 
 ## Contributions
