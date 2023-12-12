@@ -101,15 +101,27 @@ docker push bmctest/countdownapi:latest
 
 ### Basic docker container running in AWS
 
-We use Elastic Container Service to run the container. Log into AWS and navigate to the Elastic Container Service. Using the old view: run the following steps outlined in the following document on AWS Help Center: https://aws.amazon.com/getting-started/hands-on/deploy-docker-containers/
+We use Elastic Container Service to run the container. Log into AWS and navigate to the Elastic Container Service. To set up the service follow the steps below:
 
-Change the sample-app to select 'custom' and use the following Docker Hub URL to pull in the container image just created:
+1. Create a new cluster in Elastic Container Service. Select AWS Fargate (serverless) as the infrastructure. Keep allother options to the default.
 
-```
-docker.io/bmctest/countdownapi:latest
-```
+2. Once the cluster is set up, go to the Tasks tab and create a new task
 
-Select to create an Application Load Balancer and keep all other defaults. Once the service is set up, navigate to the load balancer page and find the DNS set up for sending requests. You can use the DNS name to send requests to the running service:
+3. Set the following defaults on the page:
+    - Keep the default compute options
+    - Set Deployment Configuration to Service - select the task family (if the task family is not set up then configure the task definition) The docker image is docker.io/bmctest/countdownapi:latest
+    - Assign the service name
+    - In networking, set up a new security group and keep Custom TCP to port 3000 open to all IPs
+    - Add a load Balancer - select Application load balancer. Set the listener to port 3000
+    - Use Auto Scaling
+
+4. Example of the CloudFormation template is in the CloudFormationTemplate.json file
+
+5. Once the task is running - navigate to the Cluster overview, select the Services tab and click on the service to view the load balancer metrics
+
+6. Click on view load balancer. The URL to use with the API is the load balancer DNS name (A Record)
+
+You can use the DNS name to send requests to the running service, for example:
 
 ```
 http://EC2Con-EcsEl-MEcwhs3oRXvj-1468286161.eu-west-2.elb.amazonaws.com:3000/words/s;r;k;d;u;a;e;w

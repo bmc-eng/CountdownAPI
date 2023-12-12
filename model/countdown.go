@@ -102,13 +102,15 @@ func LoadDictionary() {
 // ### HELPER FUNCTIONS ###
 // ########################
 
+// Remove a letter from the array by the index letter
 func removeIndex(s []string, index string) []string {
-	//var indexInt int
 	if len(s) == 0 {
 		return s
 	}
+	// Loop through the array and check to see if there is a match
 	for i := 0; i < len(s); i++ {
 		if s[i] == index {
+			// return the array without the current selection
 			return append(s[:i], s[i+1:]...)
 		}
 	}
@@ -116,13 +118,14 @@ func removeIndex(s []string, index string) []string {
 
 }
 
+// Function to check if the letter appears in the selection from the user
 func checkLetter(letter string, lettersFromUser []string) (ret bool) {
-
+	// loop through the user selected list of words
 	for i := 0; i < len(lettersFromUser); i++ {
 		if letter == lettersFromUser[i] {
 			return true
 		}
 	}
-
+	//  If it cant be found then return false
 	return false
 }
