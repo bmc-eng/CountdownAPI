@@ -1,6 +1,11 @@
 # Countdown API
 
-This project provides an API to be providing the highest words for a list of letters implemented with various search algorithms. The first algorithm uses a brute force approach to finding a word given the letters. The returned array is a list of all of the words in the dictionary that could be considered a match.
+This project provides APIs for both Countdown TV show games:
+
+1. **Letters Game**: Find the longest words using a given set of letters
+2. **Numbers Game**: Use mathematical operations on 6 numbers to reach a target total
+
+The letters game uses a brute force approach to find all dictionary words that can be made from the given letters. The numbers game uses a recursive algorithm to find mathematical expressions that reach (or get closest to) the target number.
 
 ## Prerequisites
 
@@ -10,13 +15,19 @@ To run the project:
 go run main.go
 ```
 
-In Postman or in a webbrowser send the following GET request:
+In Postman or in a webbrowser send the following GET requests:
 
+**Letters Game:**
 ```
 http://localhost:3000/words/s;r;k;d;u;a;e;w;n
 ```
+This returns words that can be made from the letters (separated by semicolons).
 
-This will return with a list of words matching the letters.
+**Numbers Game:**
+```
+http://localhost:3000/numbers/25,50,75,100,3,6/952
+```
+This returns mathematical solutions to reach the target number (952) using the 6 provided numbers (separated by commas).
 
 Project created with:
 
@@ -31,16 +42,29 @@ go build *.go
 ./main
 ```
 
-## Tests to run
+## API Endpoints
 
+### Letters Game Tests
 ```
 http://localhost:3000/words/t;h;e;r;d;a
 http://localhost:3000/words/t;c;h;o;s;e;n
 http://localhost:3000/words/s;r;k;d;u;a;e;w;n
-
 ```
 
-Returns example:
+### Numbers Game Tests
+```
+http://localhost:3000/numbers/25,50,75,100,3,6/952
+http://localhost:3000/numbers/10,5,3,8,1,2/100
+http://localhost:3000/numbers/75,50,25,9,7,3/831
+```
+
+### Other Endpoints
+```
+http://localhost:3000/              # Web interface
+http://localhost:3000/health        # Health check
+```
+
+### Letters Game Response Example:
 ```
 {
     "definitions": [
@@ -68,6 +92,22 @@ Returns example:
         "w",
         "n"
     ]
+}
+```
+
+### Numbers Game Response Example:
+```json
+{
+    "target": 952,
+    "numbers": [25, 50, 75, 100, 3, 6],
+    "solutions": [
+        {
+            "expression": "((100 + 75) * 6) - (50 + 25 - 3)",
+            "result": 952,
+            "distance": 0
+        }
+    ],
+    "exact": true
 }
 ```
 
@@ -125,11 +165,15 @@ You can use the DNS name to send requests to the running service, for example:
 
 ```
 http://EC2Con-EcsEl-MEcwhs3oRXvj-1468286161.eu-west-2.elb.amazonaws.com:3000/words/s;r;k;d;u;a;e;w
+http://EC2Con-EcsEl-MEcwhs3oRXvj-1468286161.eu-west-2.elb.amazonaws.com:3000/numbers/25,50,75,100,3,6/952
 ```
 To update the container, go to the cluster service page in AWS and update the service. Selecting Force new deployment will download the latest image from Docker Hub again. 
 
-## To do
+## Features
 
-- Add in the dictionary definition of the results (DONE)
-- Add functionality to limit the size of the array being returned (DONE)
-- Add instructions for running in AWS (DONE)
+- ✅ Letters game with dictionary definitions
+- ✅ Numbers game with mathematical solver
+- ✅ Web interface with tabbed games
+- ✅ Dockerized deployment
+- ✅ AWS ECS deployment instructions
+- ✅ Health check endpoint
