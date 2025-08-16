@@ -17,7 +17,9 @@ func init() {
 // set up router and run
 func main() {
 	router := gin.Default()
+	router.Static("/static", "./")
+	router.StaticFile("/", "./index.html")
 	router.GET("/words/:letters", handler.GameHandler)
-	router.GET("/", handler.HealthCheckHandler)
+	router.GET("/health", handler.HealthCheckHandler)
 	router.Run(":3000")
 }

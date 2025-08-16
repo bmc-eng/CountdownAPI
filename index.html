@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Letters Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .title {
+            font-size: 3.5em;
+            font-weight: bold;
+            color: #ff8c00;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .game-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .letters-input {
+            margin-bottom: 25px;
+        }
+
+        .letters-input label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+
+        .input-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .letter-box {
+            width: 50px;
+            height: 50px;
+            border: 2px solid #ff8c00;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            background: white;
+            color: #1e3c72;
+            text-transform: uppercase;
+            outline: none;
+        }
+
+        .letter-box:focus {
+            border-color: #ffb84d;
+            box-shadow: 0 0 10px rgba(255, 140, 0, 0.5);
+        }
+
+        .find-words-btn {
+            background: linear-gradient(45deg, #ff8c00, #ffb84d);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 140, 0, 0.3);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .find-words-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 140, 0, 0.4);
+        }
+
+        .find-words-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .results-container {
+            margin-top: 30px;
+            display: none;
+        }
+
+        .results-title {
+            font-size: 1.5em;
+            color: #ff8c00;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .words-grid {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .word-card {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            padding: 15px;
+            border-left: 4px solid #ff8c00;
+        }
+
+        .word {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #ffb84d;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .definition {
+            font-size: 0.95em;
+            line-height: 1.4;
+            color: #e0e0e0;
+        }
+
+        .loading {
+            text-align: center;
+            font-size: 1.2em;
+            color: #ff8c00;
+        }
+
+        .error {
+            background: rgba(255, 0, 0, 0.2);
+            border-left: 4px solid #ff4444;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .instructions {
+            background: rgba(255, 140, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .instructions h3 {
+            color: #ff8c00;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.5em;
+            }
+            
+            .game-container {
+                padding: 20px;
+            }
+            
+            .letter-box {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 class="title">COUNTDOWN</h1>
+        <p class="subtitle">Letters Game</p>
+    </div>
+
+    <div class="game-container">
+        <div class="instructions">
+            <h3>How to Play</h3>
+            <p>Enter up to 9 letters and find the longest words you can make!</p>
+        </div>
+
+        <div class="letters-input">
+            <label for="letters">Enter Your Letters:</label>
+            <div class="input-container" id="letterBoxes">
+                <input type="text" class="letter-box" maxlength="1" oninput="handleLetterInput(this, 0)">
+                <input type="text" class="letter-box" maxlength="1" oninput="handleLetterInput(this, 1)">
+                <input type="text" class="letter-box" maxlength="1" oninput="handleLetterInput(this, 2)">
+                <input type="text" class="letter-box" maxlength="1" oninput="handleLetterInput(this, 3)">
+                <input type="text" class="letter-box" maxlength="1" oninput="handleLetterInput(this, 4)">
+                <input type="text" class="letter-box" maxlength="1" oninput="handleLetterInput(this, 5)">
+                <input type="text" class="letter-box" maxlength="1" oninput="handleLetterInput(this, 6)">
+                <input type="text" class="letter-box" maxlength="1" oninput="handleLetterInput(this, 7)">
+                <input type="text" class="letter-box" maxlength="1" oninput="handleLetterInput(this, 8)">
+            </div>
+            <div style="text-align: center;">
+                <button class="find-words-btn" onclick="findWords()" id="findWordsBtn">
+                    Find Words
+                </button>
+            </div>
+        </div>
+
+        <div class="results-container" id="resultsContainer">
+            <div class="results-title">Found Words</div>
+            <div class="words-grid" id="wordsGrid"></div>
+        </div>
+    </div>
+
+    <script>
+        function handleLetterInput(input, index) {
+            const value = input.value.toUpperCase();
+            input.value = value;
+            
+            // Auto-focus next input if current has value and not last input
+            if (value && index < 8) {
+                const nextInput = input.parentElement.children[index + 1];
+                if (nextInput) {
+                    nextInput.focus();
+                }
+            }
+            
+            // Enable/disable button based on input
+            updateButtonState();
+        }
+
+        function updateButtonState() {
+            const inputs = document.querySelectorAll('.letter-box');
+            const hasLetters = Array.from(inputs).some(input => input.value.trim() !== '');
+            const button = document.getElementById('findWordsBtn');
+            button.disabled = !hasLetters;
+        }
+
+        function getLetters() {
+            const inputs = document.querySelectorAll('.letter-box');
+            return Array.from(inputs)
+                .map(input => input.value.trim().toLowerCase())
+                .filter(letter => letter !== '');
+        }
+
+        async function findWords() {
+            const letters = getLetters();
+            
+            if (letters.length === 0) {
+                alert('Please enter at least one letter!');
+                return;
+            }
+
+            const resultsContainer = document.getElementById('resultsContainer');
+            const wordsGrid = document.getElementById('wordsGrid');
+            const button = document.getElementById('findWordsBtn');
+            
+            // Show loading state
+            button.disabled = true;
+            button.textContent = 'Finding Words...';
+            resultsContainer.style.display = 'block';
+            wordsGrid.innerHTML = '<div class="loading">🔍 Searching for words...</div>';
+
+            try {
+                const lettersParam = letters.join(';');
+                const response = await fetch(`http://localhost:3000/words/${lettersParam}`);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                displayResults(data);
+                
+            } catch (error) {
+                console.error('Error fetching words:', error);
+                wordsGrid.innerHTML = `
+                    <div class="error">
+                        <strong>Error:</strong> Could not connect to the API. 
+                        Make sure the server is running on localhost:3000
+                        <br><br>
+                        <small>Error details: ${error.message}</small>
+                    </div>
+                `;
+            } finally {
+                button.disabled = false;
+                button.textContent = 'Find Words';
+            }
+        }
+
+        function displayResults(data) {
+            const wordsGrid = document.getElementById('wordsGrid');
+            
+            if (!data.dictionary || data.dictionary.length === 0) {
+                wordsGrid.innerHTML = `
+                    <div class="word-card">
+                        <div class="word">No words found</div>
+                        <div class="definition">Try different letters or check your spelling!</div>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            data.dictionary.forEach((word, index) => {
+                const definition = data.definitions[index] || 'No definition available';
+                html += `
+                    <div class="word-card">
+                        <div class="word">${word}</div>
+                        <div class="definition">${definition}</div>
+                    </div>
+                `;
+            });
+            
+            wordsGrid.innerHTML = html;
+        }
+
+        // Add Enter key support
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                const button = document.getElementById('findWordsBtn');
+                if (!button.disabled) {
+                    findWords();
+                }
+            }
+        });
+
+        // Initialize button state
+        updateButtonState();
+    </script>
+</body>
+</html>
