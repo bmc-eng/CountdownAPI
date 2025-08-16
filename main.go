@@ -20,6 +20,7 @@ func main() {
 	router.Static("/static", "./")
 	router.StaticFile("/", "./index.html")
 	router.GET("/words/:letters", handler.GameHandler)
+	router.GET("/numbers/:numbers/:target", handler.NumbersHandler)
 	router.GET("/health", handler.HealthCheckHandler)
 	router.Run(":3000")
 }
