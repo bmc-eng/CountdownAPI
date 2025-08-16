@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Games</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="header">
+        <h1 class="title">COUNTDOWN</h1>
+    </div>
+
+    <div class="game-container">
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('letters')">📝 Letters Game</div>
+            <div class="tab" onclick="switchTab('numbers')">🔢 Numbers Game</div>
+        </div>
+
+        <!-- Letters Game Tab -->
+        <div class="tab-content active" id="lettersTab">
+            <div class="instructions">
+                <h3>Letters Game</h3>
+                <p>Enter up to 9 letters and find the longest words you can make!</p>
+            </div>
+
+            <div class="letters-input">
+                <label for="letters">Enter Your Letters:</label>
+                <div class="input-container" id="letterBoxes">
+                    <input type="text" class="letter-box" maxlength="1" oninput="handleLetterInput(this, 0)">
+                    <input type="text" class="letter-box" maxlength="1" oninput="handleLetterInput(this, 1)">
+                    <input type="text" class="letter-box" maxlength="1" oninput="handleLetterInput(this, 2)">
+                    <input type="text" class="letter-box" maxlength="1" oninput="handleLetterInput(this, 3)">
+                    <input type="text" class="letter-box" maxlength="1" oninput="handleLetterInput(this, 4)">
+                    <input type="text" class="letter-box" maxlength="1" oninput="handleLetterInput(this, 5)">
+                    <input type="text" class="letter-box" maxlength="1" oninput="handleLetterInput(this, 6)">
+                    <input type="text" class="letter-box" maxlength="1" oninput="handleLetterInput(this, 7)">
+                    <input type="text" class="letter-box" maxlength="1" oninput="handleLetterInput(this, 8)">
+                </div>
+                <div class="button-container">
+                    <button class="game-btn" onclick="findWords()" id="findWordsBtn">
+                        Find Words
+                    </button>
+                    <button class="game-btn reset-btn" onclick="resetLettersGame()" id="resetLettersBtn">
+                        Reset
+                    </button>
+                </div>
+            </div>
+
+            <div class="results-container" id="lettersResultsContainer">
+                <div class="results-title">Found Words</div>
+                <div class="words-grid" id="wordsGrid"></div>
+            </div>
+        </div>
+
+        <!-- Numbers Game Tab -->
+        <div class="tab-content" id="numbersTab">
+            <div class="instructions">
+                <h3>Numbers Game</h3>
+                <p>Use the 6 numbers and +, -, *, / to reach the target number!</p>
+            </div>
+
+            <div class="numbers-input">
+                <label for="numbers">Enter Your 6 Numbers:</label>
+                <div class="input-container" id="numberBoxes">
+                    <input type="text" class="number-box" maxlength="2" oninput="handleNumberInput(this, 0)">
+                    <input type="text" class="number-box" maxlength="2" oninput="handleNumberInput(this, 1)">
+                    <input type="text" class="number-box" maxlength="2" oninput="handleNumberInput(this, 2)">
+                    <input type="text" class="number-box" maxlength="2" oninput="handleNumberInput(this, 3)">
+                    <input type="text" class="number-box" maxlength="2" oninput="handleNumberInput(this, 4)">
+                    <input type="text" class="number-box" maxlength="2" oninput="handleNumberInput(this, 5)">
+                </div>
+                
+                <div class="target-input">
+                    <label for="target">Target Number:</label>
+                    <input type="text" class="target-box" id="targetBox" maxlength="4" oninput="handleTargetInput(this)">
+                </div>
+
+                <div class="button-container">
+                    <button class="game-btn" onclick="solveNumbers()" id="solveNumbersBtn">
+                        Solve Numbers
+                    </button>
+                    <button class="game-btn reset-btn" onclick="resetNumbersGame()" id="resetNumbersBtn">
+                        Reset
+                    </button>
+                </div>
+            </div>
+
+            <div class="results-container" id="numbersResultsContainer">
+                <div class="results-title">Mathematical Solutions</div>
+                <div class="solutions-grid" id="solutionsGrid"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
