@@ -23,5 +23,5 @@ func main() {
 	router.GET("/words/:letters", handler.GameHandler)
 	router.GET("/numbers/:numbers/:target", handler.NumbersHandler)
 	router.GET("/health", handler.HealthCheckHandler)
-	router.Run(":3001")
+	router.Run(":3000")
 }
